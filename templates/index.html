@@ -1,0 +1,62 @@
+t<!DOCTYPE html>
+<html>
+<head>
+    <title>Lung Cancer Prediction</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h1>Lung Cancer Prediction </h1>
+    <form action="/predict" method="post">
+        <label for="Alcoholuse">Alcohol Use:</label>
+        <select id="Alcoholuse" name="Alcoholuse">
+            {% for value in unique_values['Alcoholuse'] %}
+                <option value="{{ value }}">{{ value }}</option>
+            {% endfor %}
+        </select><br>
+
+        <label for="DustAllergy">Dust Allergy:</label>
+        <select id="DustAllergy" name="D    ustAllergy">
+            {% for value in unique_values['DustAllergy'] %}
+                <option value="{{ value }}">{{ value }}</option>
+            {% endfor %}
+        </select><br>
+
+        <label for="OccuPationalHazards">Occupational Hazards:</label>
+        <select id="OccuPationalHazards" name="OccuPationalHazards">
+            {% for value in unique_values['OccuPationalHazards'] %}
+                <option value="{{ value }}">{{ value }}</option>
+            {% endfor %}
+        </select><br>
+
+        <label for="GeneticRisk">Genetic Risk:</label>
+        <select id="GeneticRisk" name="GeneticRisk">
+            {% for value in unique_values['GeneticRisk'] %}
+                <option value="{{ value }}">{{ value }}</option>
+            {% endfor %}
+        </select><br>
+
+        <label for="Obesity">Obesity:</label>
+        <select id="Obesity" name="Obesity">
+            {% for value in unique_values['Obesity'] %}
+                <option value="{{ value }}">{{ value }}</option>
+            {% endfor %}
+        </select><br>
+
+        <label for="CoughingofBlood">Coughing of Blood:</label>
+        <select id="CoughingofBlood" name="CoughingofBlood">
+            {% for value in unique_values['CoughingofBlood'] %}
+                <option value="{{ value }}">{{ value }}</option>
+            {% endfor %}
+        </select><br>
+
+        <label for="Fatigue">Fatigue:</label>
+        <select id="Fatigue" name="Fatigue">
+            {% for value in unique_values['Fatigue'] %}
+                <option value="{{ value }}">{{ value }}</option>
+            {% endfor %}
+        </select><br>
+
+        <input type="submit" value="Predict">
+    </form>
+</body>
+</html>
