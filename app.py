@@ -1,10 +1,8 @@
-from flask import Flask, render_template, request
+import streamlit as st
 import joblib
 import pandas as pd
 
-app = Flask(__name__)
-
-# Load the trained SVM model
+# Load the SVM model
 svm_model = joblib.load('svm_model.pkl')
 
 # Unique values for each parameter
@@ -18,28 +16,20 @@ unique_values = {
     'Fatigue': [1, 2, 3, 4, 5, 6, 7, 8],
 }
 
-# Define a route for the home page
-@app.route('/')
-def home():
-    return render_template('index.html', unique_values=unique_values)
+# Streamlit app code
+st.title('Lung Disease Prediction')
 
-# Define a route to handle the form submission and make predictions
-@app.route('/predict', methods=['POST'])
-def predict():
-    if request.method == 'POST':
-        input_data = {}
+# Create dropdowns for user input
+selected_values = {}
+for param, values in unique_values.items():
+    selected_values[param] = st.selectbox(f'Select {param}', values)
 
-        # Get selected values from the form and convert them to integers
-        for param in unique_values.keys():
-            input_data[param] = int(request.form.get(param))
+# Predict when the user clicks the button
+if st.button('Predict'):
+    user_data = pd.DataFrame(selected_values, index=[0])
+    prediction = svm_model.predict(user_data)
+    if prediction[0] == 0:
+        st.success('The person is safe and less likely to get cancer.')
+    else:
+        st.warning('The person has to be treated ASAP! and is very likely to have cancer.')
 
-        # Create a DataFrame from the user's selected values
-        user_data = pd.DataFrame(input_data, index=[0])
-
-        # Perform prediction using the loaded SVM model
-        prediction = svm_model.predict(user_data)
-
-        return render_template('result.html', prediction=prediction[0])
-
-if __name__ == '__main__':
-    app.run(debug=True)
