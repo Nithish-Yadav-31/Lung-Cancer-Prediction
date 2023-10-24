@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Lung Disease Prediction Result</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h1>Prediction Result</h1>
+    
+    {% if prediction == 0 %}
+    <p>The person is safe and less likely to get cancer.</p>
+    {% else %}
+    <p>The person has to be treated ASAP! and is very likely to have cancer.</p>
+    {% endif %}
+    
+    <p><a href="/">Go back to the prediction form</a></p>
+</body>
+</html>
